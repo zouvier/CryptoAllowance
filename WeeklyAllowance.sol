@@ -3,6 +3,9 @@
 
 //Made by ZOUVIER! 
 // chose 0.8.0 because of the already implemented safe math, Also, i left some of the values as public for easy testing on Remix IDE. 
+
+// TODO: change owner to use open zepp contract.
+
 pragma solidity ^0.8.0;
 
 contract SharedWallet {
