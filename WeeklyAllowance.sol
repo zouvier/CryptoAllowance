@@ -11,7 +11,7 @@ import '/Users/zouvier/projects/openzeppelin-contracts/contracts/access/Ownable.
 pragma solidity ^0.8.0;
 
 contract SharedWallet is Ownable{
-    
+
     event Received(address, uint);
     
     // address of the owner, made it private so that it can only be accessed from within this contract.
@@ -75,7 +75,7 @@ contract SharedWallet is Ownable{
     //allows the owner to withdraw any amount they want
     // MAKE PRIVATE
     function ownerWithdraws(uint amount) onlyOwner external payable {
-        payable(_owner).transfer(amount);
+        payable(owner()).transfer(amount);
     }
     
     
