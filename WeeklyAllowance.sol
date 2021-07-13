@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-import '/Users/zouvier/projects/openzeppelin-contracts/contracts/access/Ownable.sol';
+import './Ownable.sol';
 
 
 //Made by ZOUVIER! 
@@ -11,6 +11,10 @@ import '/Users/zouvier/projects/openzeppelin-contracts/contracts/access/Ownable.
 pragma solidity ^0.8.0;
 
 contract SharedWallet is Ownable{
+    
+    constructor () payable {
+        
+    }
 
     event Received(address, uint);
     
@@ -91,10 +95,5 @@ contract SharedWallet is Ownable{
    }
    
    receive() external payable {  }
-
-   
-    
-    
-    
     
     }
