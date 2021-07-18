@@ -23,7 +23,8 @@ contract SharedWallet is Ownable{
     
     //check to see if address is able to withdraw weeklt allowance.
     modifier CheckCred {
-        require(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp), "Sorry you're either too early or no longer have access to this wallet");
+        require(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp), 
+        "Sorry you're either too early or no longer have access to this wallet");
         _;
     }
 
@@ -84,7 +85,6 @@ contract SharedWallet is Ownable{
     
     
     // allows the owner to check the value of the contract
-    //MAKE PRIVATE
     function CheckAddressValue() view external onlyOwner returns(uint) {
         return ((address(this).balance)/1 ether);
     }
