@@ -12,18 +12,19 @@ pragma solidity ^0.8.0;
 
 contract SharedWallet is Ownable{
     
+
+    // allows wallet to recieve funds through the fall back function 
     constructor () payable {
         
     }
 
     event Received(address, uint);
     
-    // address of the owner, made it private so that it can only be accessed from within this contract.
-    //address private owner;
     
-    //check to see if address is able to withdraw weeklt allowance.
+    //check to see if address is able to withdraw weekly allowance.
     modifier CheckCred {
-        require(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp), "Sorry you're either too early or no longer have access to this wallet");
+        require(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp), 
+        "Sorry you're either attempting to withdraw funds too early or no longer have access to this wallet");
         _;
     }
     
@@ -42,7 +43,6 @@ contract SharedWallet is Ownable{
     
     
     // function to initialize an address to the shared wallet. can only be done by the owner of the wallet. 
-    // MAKE PRIVATE
     function addToTrustedListAndPay(address _trustedAddress, uint weeklyAmount) onlyOwner external  {
         require(Trustee[_trustedAddress].alreadySet == false);
         Trustee[_trustedAddress].alreadySet = true;
@@ -54,14 +54,12 @@ contract SharedWallet is Ownable{
     }
     
     //allow the owner of the contract to remove an address from the trusted list.
-    // MAKE PRIVATE
     function removeFromTrustedList(address _trustedAddress) onlyOwner external {
         require(Trustee[_trustedAddress].can_withdraw = false);
     }
     
     
     // allows an address to withdraw allowances again. adding them to the trusted list. 
-    // MAKE PRIVATE
     function addAgain(address _trustedAddress) onlyOwner external {
         require(Trustee[_trustedAddress].alreadySet == true);
         Trustee[_trustedAddress].timeUntilNextWithdraw = block.timestamp + 1 weeks;
@@ -77,14 +75,12 @@ contract SharedWallet is Ownable{
     
     
     //allows the owner to withdraw any amount they want
-    // MAKE PRIVATE
     function ownerWithdraws(uint amount) onlyOwner external payable {
         payable(owner()).transfer(amount);
     }
     
     
     // allows the owner to check the value of the contract
-    //MAKE PRIVATE
     function CheckAddressValue() view external onlyOwner returns(uint) {
         return ((address(this).balance)/1 ether);
     }
