@@ -1,0 +1,36 @@
+INFO:Detectors:
+SharedWallet.addToTrustedListAndPay(address,uint256) (WeeklyAllowance.sol#46-54) sends eth to arbitrary user
+	Dangerous calls:
+	- address(_trustedAddress).transfer(Trustee[_trustedAddress].withdraw_Amount * (10 ** 18)) (WeeklyAllowance.sol#52)
+SharedWallet.ownerWithdraws(uint256) (WeeklyAllowance.sol#81-83) sends eth to arbitrary user
+	Dangerous calls:
+	- address(owner()).transfer(amount) (WeeklyAllowance.sol#82)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
+INFO:Detectors:
+SharedWallet.addToTrustedListAndPay(address,uint256) (WeeklyAllowance.sol#46-54) compares to a boolean constant:
+	-require(bool)(Trustee[_trustedAddress].alreadySet == false) (WeeklyAllowance.sol#47)
+SharedWallet.addAgain(address) (WeeklyAllowance.sol#65-69) compares to a boolean constant:
+	-require(bool)(Trustee[_trustedAddress].alreadySet == true) (WeeklyAllowance.sol#66)
+SharedWallet.CheckCred() (WeeklyAllowance.sol#25-28) compares to a boolean constant:
+	-require(bool,string)(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp),Sorry you're either too early or no longer have access to this wallet) (WeeklyAllowance.sol#26)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#boolean-equality
+INFO:Detectors:
+Pragma version^0.8.0 (Context.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (Ownable.sol#3) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+Pragma version^0.8.0 (WeeklyAllowance.sol#11) necessitates a version too recent to be trusted. Consider deploying with 0.6.12/0.7.6
+solc-0.8.6 is not recommended for deployment
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+INFO:Detectors:
+Parameter SharedWallet.addToTrustedListAndPay(address,uint256)._trustedAddress (WeeklyAllowance.sol#46) is not in mixedCase
+Parameter SharedWallet.removeFromTrustedList(address)._trustedAddress (WeeklyAllowance.sol#58) is not in mixedCase
+Parameter SharedWallet.addAgain(address)._trustedAddress (WeeklyAllowance.sol#65) is not in mixedCase
+Function SharedWallet.CheckAddressValue() (WeeklyAllowance.sol#88-90) is not in mixedCase
+Variable SharedWallet.Trustee (WeeklyAllowance.sol#40) is not in mixedCase
+Modifier SharedWallet.CheckCred() (WeeklyAllowance.sol#25-28) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+INFO:Detectors:
+renounceOwnership() should be declared external:
+	- Ownable.renounceOwnership() (Ownable.sol#53-55)
+transferOwnership(address) should be declared external:
+	- Ownable.transferOwnership(address) (Ownable.sol#61-64)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external

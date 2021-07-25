@@ -26,7 +26,7 @@ contract SharedWallet is Ownable{
         require(Trustee[msg.sender].can_withdraw == true && Trustee[msg.sender].timeUntilNextWithdraw < (block.timestamp), "Sorry you're either too early or no longer have access to this wallet");
         _;
     }
-
+    
     
     // a struct that will keep track of an address ability to withdraw.
     struct AllowedWallet {
