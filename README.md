@@ -1,4 +1,5 @@
 # CryptoAllowance
+
 A wallet coded in solidity that can be used as a weekly allowance distributor. 
 
 Before deploying contract go through the code and make changes to visibility on the functions depending on your usecase.
